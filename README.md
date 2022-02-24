@@ -1,2 +1,2 @@
-# GAME3011_A1_EthierMorgan
- Assignment 1 fore GAME3011 Portfolio Development @ GBC Winter 2022
+# GAME3011_A2_EthierMorgan
+ Assignment 2 for GAME3011 Portfolio Development @ GBC Winter 2022
