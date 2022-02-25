@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &428670202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -604,6 +604,9 @@ MonoBehaviour:
   lockPick: {fileID: 639516264}
   lockNum: 0
   lockDiff: 0
+  lockRot: 0
+  currentDifficulty: 0
+  skillContainer: {fileID: 1010664649}
 --- !u!1 &951822789
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41a903e3214ab6f488c3e45d8bbdf3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockDifficulty: 0
 --- !u!114 &1010664652
 MonoBehaviour:
   m_ObjectHideFlags: 0

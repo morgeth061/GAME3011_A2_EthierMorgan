@@ -10,6 +10,8 @@ public class A2GameButtonBehaviour : MonoBehaviour
 
     private GameObject gameWindow;
 
+    public int lockDifficulty = 0;
+
     //**************************
     //Toggle Game Window On And Off
     //**************************
@@ -25,7 +27,7 @@ public class A2GameButtonBehaviour : MonoBehaviour
         gameWindow.SetActive(gameVisible);
         if (gameVisible)
         {
-            //gameWindow.transform.Find("Nodes").gameObject.GetComponent<NodeController>().Setup();
+            gameWindow.transform.Find("Lock").gameObject.GetComponent<LockBehaviour>().Setup(lockDifficulty);
         }
     }
 }
