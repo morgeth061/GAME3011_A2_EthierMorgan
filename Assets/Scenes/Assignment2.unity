@@ -1208,6 +1208,7 @@ MonoBehaviour:
   mouseSensitivity: 100
   lockPick: {fileID: 639516265}
   lockpickVal: 0
+  Lock: {fileID: 868039381}
 --- !u!1 &768298587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,6 +1410,7 @@ MonoBehaviour:
   lockDiff: 0
   lockRot: 0
   currentDifficulty: 0
+  isHeld: 0
   skillContainer: {fileID: 1010664649}
   TimerText: {fileID: 432447505}
   DifficultyText: {fileID: 118389919}

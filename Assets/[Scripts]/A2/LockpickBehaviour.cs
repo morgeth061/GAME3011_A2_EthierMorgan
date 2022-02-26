@@ -10,26 +10,23 @@ public class LockpickBehaviour : MonoBehaviour
     public float lockpickVal;
 
     private float YRotation = 0.0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Cursor.lockState = CursorLockMode.Locked;
-    }
 
-    // Update is called once per frame
+    public GameObject Lock;
+    
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        if (!Lock.GetComponent<LockBehaviour>().isHeld && !Lock.GetComponent<LockBehaviour>().lockPicked)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        YRotation -= mouseX;
-        YRotation = Mathf.Clamp(YRotation, -90.0f, 90.0f);
+            YRotation -= mouseX;
+            YRotation = Mathf.Clamp(YRotation, -90.0f, 90.0f);
 
-        lockpickVal = YRotation + 90.0f;
+            lockpickVal = YRotation + 90.0f;
 
-        //print(lockpickVal);
-
-        transform.localRotation = Quaternion.Euler(0.0f, 0.0f, YRotation);
-        lockPick.Rotate(Vector3.right * mouseY);
+            transform.localRotation = Quaternion.Euler(0.0f, 0.0f, YRotation);
+            lockPick.Rotate(Vector3.right * mouseY);
+        }
     }
 }

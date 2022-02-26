@@ -17,11 +17,11 @@ public class LockBehaviour : MonoBehaviour
 
     public float lockRot; //Rotation of lock
 
-    public int currentDifficulty;
+    public int currentDifficulty; //Int representation of current difficulty
 
-    private bool isHeld = false;
+    public bool isHeld = false;
 
-    private bool lockPicked = false;
+    public bool lockPicked = false;
 
     private bool unlockAttempted = false;
 
@@ -34,8 +34,7 @@ public class LockBehaviour : MonoBehaviour
     public GameObject DifficultyText;
 
     public AudioSource KeyUnlock;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         Setup(0);
@@ -69,8 +68,7 @@ public class LockBehaviour : MonoBehaviour
         }
 
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         float lockpickNum = lockPick.GetComponent<LockpickBehaviour>().lockpickVal / 2;
@@ -98,11 +96,11 @@ public class LockBehaviour : MonoBehaviour
                 GetComponent<AudioSource>().Play();
                 unlockAttempted = true;
             }
-            else if (isHeld && lockRot > 90.0f && !unlockAttempted)
+            else if (isHeld && lockRot > 90.0f && !unlockAttempted) //Return lock to base position
             {
                 lockRot = 90.0f;
             }
-            else if (!isHeld && lockRot > 0.0f)
+            else if (!isHeld && lockRot > 0.0f) //Return lock to base position
             {
                 lockRot = lockRot - 1.0f;
                 GetComponent<AudioSource>().Stop();
@@ -111,8 +109,6 @@ public class LockBehaviour : MonoBehaviour
             {
                 lockRot = 0.0f;
             }
-
-            print((90.0f - (2.0f - currentDifficulty) * 7.5f));
 
             if (lockRot >= (90.0f - (2.0f - currentDifficulty) * 7.5f))
             {
@@ -128,7 +124,6 @@ public class LockBehaviour : MonoBehaviour
                 }
             }
         }
-
         transform.localRotation = Quaternion.Euler(0.0f, 0.0f, lockRot);
     }
 }
