@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 //Difficulty 0 = Easy
 //Difficulty 1 = Medium
@@ -22,7 +23,17 @@ public class LockBehaviour : MonoBehaviour
 
     private bool lockPicked = false;
 
+    private bool unlockAttempted = false;
+
+    private float timer;
+
     public GameObject skillContainer; //Object that holds player skill
+
+    public GameObject TimerText;
+
+    public GameObject DifficultyText;
+
+    public AudioSource KeyUnlock;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +50,24 @@ public class LockBehaviour : MonoBehaviour
         currentDifficulty = difficulty;
         lockPicked = false;
         isHeld = false;
+
+        //Timer setup
+        if (difficulty == 0)
+        {
+            timer = 60;
+            DifficultyText.GetComponent<TextMeshProUGUI>().text = "Easy";
+        }
+        else if (difficulty == 1)
+        {
+            timer = 45;
+            DifficultyText.GetComponent<TextMeshProUGUI>().text = "Medium";
+        }
+        else if (difficulty == 2)
+        {
+            timer = 30;
+            DifficultyText.GetComponent<TextMeshProUGUI>().text = "Hard";
+        }
+
     }
 
     // Update is called once per frame
@@ -46,6 +75,7 @@ public class LockBehaviour : MonoBehaviour
     {
         float lockpickNum = lockPick.GetComponent<LockpickBehaviour>().lockpickVal / 2;
         lockDiff = Mathf.Abs(lockpickNum - lockNum);
+        TimerText.GetComponent<TextMeshProUGUI>().text = (Mathf.Round(timer)).ToString();
 
         if (Input.GetKeyDown("w"))
         {
@@ -55,21 +85,27 @@ public class LockBehaviour : MonoBehaviour
         if (Input.GetKeyUp("w"))
         {
             isHeld = false;
+            unlockAttempted = false;
         }
 
-        if (!lockPicked)
+        if (!lockPicked && timer > 0)
         {
+            timer -= Time.deltaTime;
+
             if (isHeld && (lockRot <= 90.0f - lockDiff))
             {
                 lockRot = lockRot + 1.0f;
+                GetComponent<AudioSource>().Play();
+                unlockAttempted = true;
             }
-            else if (isHeld && lockRot > 90.0f)
+            else if (isHeld && lockRot > 90.0f && !unlockAttempted)
             {
                 lockRot = 90.0f;
             }
             else if (!isHeld && lockRot > 0.0f)
             {
                 lockRot = lockRot - 1.0f;
+                GetComponent<AudioSource>().Stop();
             }
             else if (!isHeld && lockRot <= 0.0f)
             {
@@ -80,6 +116,8 @@ public class LockBehaviour : MonoBehaviour
 
             if (lockRot >= (90.0f - (2.0f - currentDifficulty) * 7.5f))
             {
+                GetComponent<AudioSource>().Stop();
+                KeyUnlock.PlayOneShot(KeyUnlock.clip, 0.75f);
                 print("Lock Picked");
                 lockRot = 90.0f;
                 lockPicked = true;
